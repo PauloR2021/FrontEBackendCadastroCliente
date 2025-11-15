@@ -4,11 +4,12 @@ require('dotenv').config();//Trazendo os dados do .env
 const express = require('express');//Importando o Framework Express
 const cors = require('cors');  //Importando o Pacote CORS
 const mysql = require('mysql2'); //Importando o Pacote MySQL2
-const bodyParser = require('body-parser');
+
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json()); //Metodo para ler JSON no corpo das requisições
+
 
 //Criando a Conexão com o banco de dados
 const db = mysql.createConnection({
@@ -53,6 +54,31 @@ app.get('/usuarios', (req, res) => {
             res.status(200).json(results);
         }
     });
+});
+
+
+//Rota para Excluir Usuario
+app.delete("/usuarios/:id", (req, res) => {
+    const { id } = req.params;
+    db.query("DELETE FROM usuarios WHERE id = ?", [id], (err) => {
+        if (err) return res.status(500).send(err);
+        res.send({ mensagem: "Usuário removido" });
+    });
+});
+
+//Rota para Atualizar Usuario
+app.put("/usuarios/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, email, idade } = req.body;
+
+    db.query(
+        "UPDATE usuarios SET nome = ?, email = ?, idade = ? WHERE id = ?",
+        [nome, email, idade, id],
+        (err) => {
+            if (err) return res.status(500).send(err);
+            res.send({ mensagem: "Usuário atualizado" });
+        }
+    );
 });
 
 //Iniciando o Servidor
