@@ -2,7 +2,7 @@ import React from "react";
 
 function UsuarioForm({ nome, email, idade, senha, setNome, setEmail, setIdade, setSenha, cadastrarUsuario }) {
     return (
-        <form onSubmit={cadastrarUsuario} calssName="card p-4 shwadonw-sm">
+        <form onSubmit={cadastrarUsuario} className="card p-4 shwadonw-sm">
             <div className="mb-3">
                 <label>Nome</label>
                 <input
