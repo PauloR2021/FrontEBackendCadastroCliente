@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <Router>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">Meu App Full Stack</Link>
           <div>
